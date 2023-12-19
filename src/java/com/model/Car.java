@@ -25,6 +25,19 @@ public class Car {
         this.price = price;
     }
 
+    public Car(int id) {
+        this.id = id;
+    }
+
+    public Car(int yearOfIssue, String brand, String model, String color, String registrationNumber, double price) {
+        this.yearOfIssue = yearOfIssue;
+        this.brand = brand;
+        this.model = model;
+        this.color = color;
+        this.registrationNumber = registrationNumber;
+        this.price = price;
+    }
+
     public int getId() {
         return id;
     }

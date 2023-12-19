@@ -13,7 +13,7 @@
             </style>
         </head>
         <body align="center">
-             <section class="error">
+            <section class="error">
                 <div class="error__content">
                     <div class="error__message message">
                    
@@ -23,7 +23,8 @@
             <form action="page" method="post">
                 <input type="hidden" name="page" value="toLogin">
                 <input type="submit" value="<fmt:message key="toHomepage" />">
-            </form>        </div>
+            </form>        
+                    </div></section>
         </body>
     </fmt:bundle>
 </html>

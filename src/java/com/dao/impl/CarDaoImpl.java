@@ -5,7 +5,13 @@
 package com.dao.impl;
 
 import com.dao.CarDao;
+import com.model.Admin;
 import com.model.Car;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.HashSet;
 import java.util.Set;
 import javax.sql.DataSource;
 
@@ -13,31 +19,37 @@ import javax.sql.DataSource;
  *
  * @author Administrator
  */
-public class CarDaoImpl implements CarDao{
-        private final DataSource dataSource;
+public class CarDaoImpl implements CarDao {
+
+    private final DataSource dataSource;
 
     public CarDaoImpl(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
     @Override
-    public boolean create(Car car) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
     public Set<Car> read() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+        String req = "Select * from cars";
+        Set<Car> cars;
+        try (Connection conn = dataSource.getConnection()) {
+            try (Statement statement = conn.createStatement(); ResultSet resultSet = statement.executeQuery(req)) {
+                cars = new HashSet<>();
+                while (resultSet.next()) {//пока есть записи 
+                    int id = resultSet.getInt("id");
+                    int yearOfIssue = resultSet.getInt("year_of_issue");
+                    String brand = resultSet.getString("brand");
+                    String model = resultSet.getString("model");
+                    String color = resultSet.getString("color");
+                    String registrationNumber = resultSet.getString("registration_number");
+                    double price = resultSet.getDouble("price");
 
-    @Override
-    public boolean update() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+                    cars.add(new Car(id, brand, model, color, registrationNumber, yearOfIssue, price));
+                }
+            }
+            return cars;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }
     }
-
-    @Override
-    public boolean delete(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
 }

@@ -12,11 +12,7 @@ import java.util.Set;
  * @author Administrator
  */
 public interface CarDao {
-    boolean create(Car car);
 
     Set<Car> read();
 
-    boolean update();
-
-    boolean delete(int id);
 }

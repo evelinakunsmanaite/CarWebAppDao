@@ -6,8 +6,6 @@ package com.controller;
 
 import com.model.User;
 import java.io.IOException;
-import java.util.Locale;
-import java.util.ResourceBundle;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -31,13 +29,18 @@ public class AddServlet extends InitServlet implements Jumpable {
         String login = request.getParameter("login");
         String name = request.getParameter("name");
         String password = request.getParameter("password");
-
-        // Создаем объект абитуриента
-        User user = new User(login, name, password);
-
-        boolean isUserAdd = userService.create(user);
-        if (isUserAdd)  jump("/WEB-INF/jsp/true.jsp", request, response);
-         else jump("/WEB-INF/jsp/false.jsp", request, response);   
-
+if (!name.matches("[a-zA-Zа-яА-Я ]+")) {
+    // Выражение не соответствует требованиям (буквы и пробелы), обработка ошибки
+    jump("/WEB-INF/jsp/false.jsp", request, response);
+} else {
+    // Ваш текущий код
+    User user = new User(login, name, password);
+    boolean isUserAdd = userService.create(user);
+    if (isUserAdd) {
+        jump("/WEB-INF/jsp/true.jsp", request, response);
+    } else {
+        jump("/WEB-INF/jsp/false.jsp", request, response);
+    }
+}
     }
 }

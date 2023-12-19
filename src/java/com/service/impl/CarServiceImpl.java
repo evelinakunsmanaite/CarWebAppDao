@@ -1,44 +1,47 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.service.impl;
 
 import com.dao.CarDao;
 import com.model.Car;
 import com.service.CarService;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  *
  * @author Administrator
  */
-public class CarServiceImpl implements CarService{
-        CarDao dao;
+public class CarServiceImpl implements CarService {
+
+    CarDao dao;
 
     public CarServiceImpl(CarDao dao) {
         this.dao = dao;
     }
 
     @Override
-    public boolean create(Car car) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
     public Set<Car> read() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return dao.read();
     }
 
     @Override
-    public boolean update() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public List<Car> getListBrand(String brand) {
+        return dao.read().stream()
+                .filter(car -> brand.equals(car.getBrand()))
+                .collect(Collectors.toList());
     }
 
     @Override
-    public boolean delete(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public List<Car> getListExploitation(int exploitation) {
+        return dao.read().stream()
+                .filter(car -> (2023 - car.getYearOfIssue()) > exploitation)
+                .collect(Collectors.toList());
     }
-   
-    
+
+    @Override
+    public List<Car> getListYearOfIssueAndPrice(int yearOfIssue, double price) {
+        return dao.read().stream()
+                .filter(car -> car.getYearOfIssue() == yearOfIssue && car.getPrice() > price)
+                .collect(Collectors.toList());
+    }
 }

@@ -44,12 +44,14 @@ public class UpdateServlet extends InitServlet implements Jumpable {
        String login = request.getParameter("login");
        String name = request.getParameter("name");
        String password = request.getParameter("password");
-
+if(name.matches("[0-9,]+")){        
+    jump("/WEB-INF/jsp/false.jsp", request, response); 
+    } else {
         boolean isUserUpdate = userService.update(id, login, name, password);
 
          if (isUserUpdate)  jump("/WEB-INF/jsp/true.jsp", request, response);
          else jump("/WEB-INF/jsp/false.jsp", request, response);   
-
+}
     }
 
 }

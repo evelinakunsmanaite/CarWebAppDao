@@ -5,42 +5,39 @@
 <!DOCTYPE html>
 <html>
     <head>
+          <fmt:setLocale value='${pageContext.response.locale}' scope="session"/>
+          <fmt:bundle basename="com.localization.messages.msg">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link href="resources/css/result.css" rel="stylesheet" />
-
-        <title>JSP Page</title>
+        <style>
+            <%@include file="/resources/css/result.css" %><!-- Генерируем URL для CSS файла -->            
+        </style>
     </head>
     <body>
-        <c:choose>
-            <c:when test="${not empty result}">
-                <table>
-                    <thead>
-                    <th>ID машины</th>
-                    <th>Бренд</th>
-                    <th>Модель</th>
-                    <th>Цвет</th>
-                    <th>Номер</th>
-                    <th>Год выпуска</th>
-                    <th>Цена</th>
-  
-                </thead>
-                <c:forEach var="a" items="${result}">
-                    <tr>
-                        <td>${a.id}</td>
-                        <td>${a.brand}</td>
-                        <td>${a.model}</td>
-                        <td>${a.color}</td>
-                        <td>${a.registrationNumber}</td>
-                        <td>${a.yearOfIssue}</td>
-                        <td>${a.price}</td>
-                        </tr>
-                </c:forEach>
-            </table>
-        </c:when>
-        <c:otherwise>
-            <c:out value="искомые данные отсутствуют" />
-        </c:otherwise>
-    </c:choose>
-    <a href="cabinet.jsp">Назад</a>  
-</body>
+        <table>
+            <thead>
+                <th><fmt:message key="table.id"/></th>
+                <th><fmt:message key="table.brand"/></th>
+                <th><fmt:message key="table.model"/></th>
+                <th><fmt:message key="table.color"/></th>
+                <th><fmt:message key="table.number"/></th>
+                <th><fmt:message key="table.year"/></th>
+                <th><fmt:message key="table.price"/></th>
+            </thead>
+            <c:forEach var="a" items="${result}">
+                <tr>
+                    <td>${a.id}</td>
+                    <td>${a.brand}</td>
+                    <td>${a.model}</td>
+                    <td>${a.color}</td>
+                    <td>${a.registrationNumber}</td>
+                    <td>${a.yearOfIssue}</td>
+                    <td>${a.price}</td>
+                </tr>
+            </c:forEach>
+        </table>
+        <form action="page" method="post">
+            <input type="hidden" name="page" value="toUser">
+            <input type="submit" value="<fmt:message key="button.toHomepage"/>">
+        </form>
+    </body></fmt:bundle>
 </html>

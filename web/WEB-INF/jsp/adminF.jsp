@@ -14,7 +14,6 @@
             </style>
         </head>
         <body>
-                        <img class="wave" src="resources/img/avtor.jpg"> 
 
             <div class="signin-form">
 
@@ -32,7 +31,7 @@
                 </ul>
                 <form action="page" method="post">
                     <input type="hidden" name="page" value="toLogin">
-                    <input type="submit" value="<fmt:message key="toHomepage" />">
+                    <input class="btn1"  type="submit" value="<fmt:message key="toHomepage" />">
                 </form>  
             </div>
         </body>
